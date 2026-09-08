@@ -11,9 +11,7 @@
 ## 核心功能
 
 - 支持通过 Assimp 加载 PMX 场景与 OBJ 角色模型。
-- 支持 OBJ/MTL 中的 `Kd`、`Ks`、`Ns`、`Ke`、`map_Kd` 和 `map_Ke`。
 - 在同一材质系统中支持经典 Blinn-Phong 与 Cook-Torrance PBR 两条光照路径。
-- 支持 Diffuse、Specular、Emissive、Normal、Metallic-Roughness 和 AO 纹理。
 - 使用浮点 HDR 帧缓冲保存高亮信息，并完成曝光控制、色调映射和 Gamma 校正。
 - 使用深度立方体贴图实现点光源 360° 全向阴影。
 - 使用硬件深度比较、无缝立方体采样与 Vogel Disk PCF 改善阴影质量。
