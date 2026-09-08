@@ -1,22 +1,12 @@
 # ToyRenderer：基于 OpenGL 的实时多通道渲染器
 
-> 一个使用 C++17 与 OpenGL 3.3 Core Profile 编写的学习型实时渲染项目。项目能够同时加载 PMX 室内场景与 OBJ 角色模型，并实现材质系统、HDR、自发光、阴影、SSAO、MSAA 以及 ImGui 实时调参。
-
-**项目类型：** 个人图形学 Demo  
-**项目地址：** [github.com/Kaslana-423/ToyRenderer](https://github.com/Kaslana-423/ToyRenderer)  
-**开发语言：** C++17、GLSL 330  
-**图形 API：** OpenGL 3.3 Core Profile  
-**开发环境：** Windows、Visual Studio 2022、CMake
+> 一个使用 C++ 与 OpenGL 编写的学习型渲染项目。项目能够同时加载 PMX 室内场景与 OBJ 角色模型，并实现材质系统、HDR、阴影、SSAO、MSAA 以及 ImGui 实时调参。
 
 ---
 
 ## 项目展示
 
 ![alt text](overview.png)
-
-
-ToyRenderer 从模型导入、材质解析和 Shader 管理出发，逐步搭建了一套可拆分、可调试的实时渲染流程。当前场景由两类不同格式的资产组成：以 PMX 格式加载的室内场景，以及以 OBJ 格式加载的 Lisa 角色。两类模型进入统一的 `SceneObject → Model → Mesh → Material` 渲染流程，可以独立控制位置、旋转、缩放、显示状态和阴影投射状态。
-
 
 ## 核心功能
 
@@ -58,15 +48,9 @@ flowchart LR
 ## 1. 场景与材质系统
 
 
-模型通过 Assimp 导入，并转换为项目内部统一的网格和材质数据。OBJ/MTL 材质不再假设每个表面都必须存在纹理：
+用 Assimp 统一解析模型文件，提取每个子网格的顶点属性（位置、法线、UV、切线等）和材质参数之后再转成自己的model，mesh类，之后再发送给GPU进行渲染。
 
-- 存在 `map_Kd` 时，将漫反射贴图与 `Kd` 颜色相乘。
-- 不存在 `map_Kd` 时，直接使用 `Kd` 作为表面颜色，避免材质无贴图时变成纯白色。
-- `Ks` 和 `Ns` 分别控制经典光照中的镜面反射颜色与高光指数。
-- `Ke` 和 `map_Ke` 共同描述自发光颜色与自发光纹理。
-- 对具备 PBR 数据的材质读取法线、金属度-粗糙度和 AO 纹理，并进入 Cook-Torrance 光照路径。
 
-PBR 路径采用 GGX 法线分布、Smith 几何遮蔽和 Fresnel-Schlick 近似；传统材质则使用 Blinn-Phong。这样既能兼容 OBJ/MTL 的经典材质描述，也能显示 PMX 场景中更复杂的表面信息。
 
 ## 2. HDR 与自发光
 
