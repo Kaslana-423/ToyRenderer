@@ -1,0 +1,17 @@
+/build/
+/.vs/
+/out/
+/artifacts/
+*.user
+*.suo
+*.VC.db
+
+# The current demo uses only pmxHouse and lisa. Keep older local test assets
+# out of the repository, including a GLB that exceeds GitHub's 100 MB limit.
+/res/model/Bag/
+/res/model/House/
+/res/model/Odetta/
+/res/model/raiden/
+
+# GLAD's generated OpenGL 3.3 loader is vendored under third_party/glad.
+/external/glad/
